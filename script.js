@@ -4,24 +4,15 @@ let characterArray = []
 let indexArray = []
 let attempts = 0
 
-const words = JSON.parse(readTextFile("words.json"))
-function readTextFile(file)
-{
-    var rawFile = new XMLHttpRequest();
-    rawFile.open("GET", file, false);
-    rawFile.onreadystatechange = function ()
-    {
-        if(rawFile.readyState === 4)
-        {
-            if(rawFile.status === 200 || rawFile.status == 0)
-            {
-                var allText = rawFile.responseText;
-                alert(allText);
-            }
-        }
+$.getJSON('words.json', function (json) {
+var words = [];
+for (var key in json) {
+    if (json.hasOwnProperty(key)) {
+        var item = json[key];
+        words.push(item);            
     }
-    rawFile.send(null);
 }
+});
 
 String.prototype.replaceAt = function(index, replacement) {
     return this.substr(0, index) + replacement + this.substr(index + replacement.length);
